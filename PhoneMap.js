@@ -50,7 +50,7 @@ app.get('/directions', async (req, res) => {
     );
 
     if (response.data.status === 'OK') {
-      console.log("routers",response.data.routes[0].legs[0].steps[0].steps);
+      console.log('routers', response.data.routes[0].legs[0].steps[0].steps);
       const route = response.data.routes[0].legs[0];
       const startAddress = route.start_address;
       const endAddress = route.end_address;
@@ -62,10 +62,12 @@ app.get('/directions', async (req, res) => {
         steps.forEach((step) => {
           // ניקוי הטקסט של ההוראה
           let instruction = step.html_instructions
-            .replace(/<b>(.*?)<\/b>/g, '$1') // מסיר את ה-bold
-            .replace(/<div.*?>/g, '') // מסיר div אם יש
-            .replace(/<\/div>/g, ''); // מסיר div סגירה
-    
+            ? step.html_instructions
+                .replace(/<b>(.*?)<\/b>/g, '$1') // מסיר את ה-bold
+                .replace(/<div.*?>/g, '') // מסיר div אם יש
+                .replace(/<\/div>/g, '') // מסיר div סגירה
+            : 'הוראה חסרה';
+
           // הוספת ההוראה המפורקת לרשימה
           let stepText = `${instruction} (מרחק: ${step.distance.text}, זמן: ${step.duration.text})`;
 
@@ -75,11 +77,11 @@ app.get('/directions', async (req, res) => {
             const departureStop = step.transit_details.departure_stop.name; // תחנה לעלות
             const arrivalStop = step.transit_details.arrival_stop.name; // תחנה לרדת
             const departureTime = step.transit_details.departure_time.text; // שעת יציאה
-    
+
             stepText += `\n- קו ${line}, תחנה: ${departureStop}, ירידה בתחנה: ${arrivalStop}, שעת יציאה: ${departureTime}`;
           }
-    
-          allSteps.push(stepText);    
+
+          allSteps.push(stepText);
           // אם יש תת-צעדים, קוראים לפונקציה שוב
           if (step.steps && step.steps.length > 0) {
             allSteps = allSteps.concat(getDetailedSteps(step.steps));
@@ -87,7 +89,7 @@ app.get('/directions', async (req, res) => {
         });
         return allSteps;
       }
-  const detailedSteps = getDetailedSteps(route.steps);
+      const detailedSteps = getDetailedSteps(route.steps);
 
       // יצירת טקסט סופי
       let formattedText = `
