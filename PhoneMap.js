@@ -62,6 +62,17 @@ app.get('/directions', async (req, res) => {
       }
     );
 
+    // הדפסת התגובה המלאה מ-Google Maps
+    console.log('Google Maps response:', response.data);
+
+    // אם הסטטוס לא OK, הדפסת הודעת שגיאה
+    if (response.data.status !== 'OK') {
+      console.log('Error from Google Maps API:', response.data.error_message);
+    }
+
+    //   הנתיב המלא של ה-response
+    console.log('Routes:', response.data.routes);
+
     if (response.data.status === 'OK') {
       console.log('routers', response.data.routes[0].legs[0].steps[0].steps);
       const route = response.data.routes[0].legs[0];
