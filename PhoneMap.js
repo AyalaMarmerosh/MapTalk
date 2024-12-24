@@ -115,7 +115,7 @@ app.get('/directions', async (req, res) => {
       const detailedSteps = getDetailedSteps(route.steps);
 
       // יצירת טקסט סופי
-      let formattedText = `
+      let id_list_message = `
 יציאה מ${startAddress} אל ${endAddress}
 אורך: ${distance}, זמן: ${duration}
 
@@ -123,7 +123,7 @@ ${detailedSteps.join('\n')}
 `;
 
       res.set('Content-Type', 'text/plain; charset=utf-8');
-      res.send(formattedText);
+      res.send(id_list_message);
     } else {
       res
         .status(500)
