@@ -8,6 +8,7 @@ const port = 3000;
 const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
 
 app.get('/directions', async (req, res) => {
+  console.log('Received request with query:', req.query); 
   const { origin, destination, mode, departure_time, arrival_time } = req.query;
 
   if (!origin || !destination || !mode) {
@@ -60,7 +61,6 @@ app.get('/directions', async (req, res) => {
       function getDetailedSteps(steps) {
         let allSteps = [];
         steps.forEach((step) => {
-          // ניקוי הטקסט של ההוראה
           let instruction = step.html_instructions
             ? step.html_instructions
                 .replace(/<b>(.*?)<\/b>/g, '$1') // מסיר את ה-bold
