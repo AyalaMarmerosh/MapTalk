@@ -8,7 +8,7 @@ const port = 3000;
 const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
 
 app.get('/directions', async (req, res) => {
-  console.log('Received request with query:', req.query); 
+  console.log('Received request with query:', req.query);
   const { origin, destination, mode, departure_time, arrival_time } = req.query;
 
   if (!origin || !destination || !mode) {
@@ -39,6 +39,13 @@ app.get('/directions', async (req, res) => {
     : null;
 
   try {
+    console.log('Request to Google Maps API:', {
+      origin: origin,
+      destination: destination,
+      mode: modeName,
+      departure_time: departureTimeParam,
+      arrival_time: arrivalTimeParam,
+    });
     const response = await axios.get(
       `https://maps.googleapis.com/maps/api/directions/json`,
       {
