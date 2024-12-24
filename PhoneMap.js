@@ -16,13 +16,18 @@ app.get('/directions', async (req, res) => {
       .status(400)
       .send('Parameters "origin", "destination", and "mode" are required.');
   }
-
-  const validModes = ['walking', 'transit', 'bicycling', 'driving'];
-  if (!validModes.includes(mode)) {
+  const modeMap = {
+    1: 'walking',
+    2: 'transit',
+    3: 'driving',
+    4: 'bicycling',
+  };
+  const modeName = modeMap[mode];
+  if (!modeName) {
     return res
       .status(400)
       .send(
-        'Invalid "mode" parameter. Use "walking", "transit", "bicycling", or "driving".'
+        'Invalid "mode" parameter. Use 1 (walking), 2 (transit), 3 (driving), or 4 (bicycling).'
       );
   }
 
@@ -40,7 +45,7 @@ app.get('/directions', async (req, res) => {
         params: {
           origin: origin,
           destination: destination,
-          mode: mode,
+          mode: modeName,
           key: googleMapsApiKey,
           departure_time: departureTimeParam,
           arrival_time: arrivalTimeParam,
