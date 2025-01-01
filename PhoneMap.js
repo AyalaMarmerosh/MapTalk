@@ -92,7 +92,8 @@ app.get('/directions', async (req, res) => {
             : 'הוראה חסרה';
 
           // הוספת ההוראה המפורקת לרשימה
-          let stepText = `${instruction} (מרחק: ${step.distance.text}, זמן: ${step.duration.text})`;
+          let stepText = `${instruction} (זמן: ${step.duration.text})`;
+          // let stepText = `${instruction} (מרחק: ${step.distance.text}, זמן: ${step.duration.text})`;
 
           // בדיקת תחבורה ציבורית
           if (step.travel_mode === 'TRANSIT') {
@@ -115,12 +116,8 @@ app.get('/directions', async (req, res) => {
       const detailedSteps = getDetailedSteps(route.steps);
 
       // יצירת טקסט סופי
-      let id_list_message = `
-יציאה מ${startAddress} אל ${endAddress}
-אורך: ${distance}, זמן: ${duration}
+      let id_list_message = `id_list_message=t-יציאה מ${startAddress}.t-אל ${endAddress}.t-אורך ${distance}.t-זמן ${duration}`;
 
-${detailedSteps.join('\n')}
-`;
 
       res.set('Content-Type', 'text/plain; charset=utf-8');
       res.send(id_list_message);
