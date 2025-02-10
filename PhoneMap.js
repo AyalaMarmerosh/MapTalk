@@ -118,7 +118,7 @@ app.get('/directions', async (req, res) => {
 
       // יצירת טקסט סופי
       // let id_list_message = `id_list_message=t-יציאה מ${startAddress} אל ${endAddress} אורך המסלול: ${distance} זמן נסיעה משוער: ${duration}.`;
-      let id_list_message = `id_list_message=t-שלום וברכה`;
+      let id_list_message = `id_list_message=t-hello`;
 
 
       res.set('Content-Type', 'text/plain; charset=utf-8');
@@ -127,7 +127,7 @@ app.get('/directions', async (req, res) => {
       res
         .status(500)
         .send(
-          'id_list_message=t-לא נמצאה כתובת'
+          'id_list_message=t-not find address'
         );
     }
   } catch (error) {
