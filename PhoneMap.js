@@ -5,7 +5,8 @@ const axios = require('axios');
 const app = express();
 const port = 3000;
 
-const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
+// const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
+const googleMapsApiKey = "AIzaSyCdwH3Of8NmDJuaA17HxGmH994Wv0F6x7Q";
 
 app.get('/directions', async (req, res) => {
   console.log('Received request with query:', req.query);
@@ -116,7 +117,7 @@ app.get('/directions', async (req, res) => {
       const detailedSteps = getDetailedSteps(route.steps);
 
       // יצירת טקסט סופי
-      // let id_list_message = `id_list_message=t-יציאה מ${startAddress}. אל ${endAddress}. אורך המסלול: ${distance}. זמן נסיעה משוער: ${duration}.`;
+      // let id_list_message = `id_list_message=t-יציאה מ${startAddress} אל ${endAddress} אורך המסלול: ${distance} זמן נסיעה משוער: ${duration}.`;
       let id_list_message = `id_list_message=t-שלום וברכה`;
 
 
@@ -126,12 +127,12 @@ app.get('/directions', async (req, res) => {
       res
         .status(500)
         .send(
-          `Error: ${response.data.status} - ${response.data.error_message}`
+          'd_list_message=t-לא נמצאה כתובת'
         );
     }
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error fetching directions data from Google Maps.');
+    res.status(500).send('d_list_message=t-לא נמצא שרת');
   }
 });
 
