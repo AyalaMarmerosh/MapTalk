@@ -7,6 +7,7 @@ const port = 3000;
 
 const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
 
+
 app.get('/directions', async (req, res) => {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   res.setHeader('Accept-Charset', 'utf-8');
