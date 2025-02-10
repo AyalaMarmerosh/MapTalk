@@ -122,6 +122,7 @@ app.get('/directions', async (req, res) => {
 
 
       res.set('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
       res.send(id_list_message);
     } else {
       res
