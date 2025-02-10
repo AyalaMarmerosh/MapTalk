@@ -116,7 +116,7 @@ app.get('/directions', async (req, res) => {
       const detailedSteps = getDetailedSteps(route.steps);
 
       // יצירת טקסט סופי
-      let id_list_message = `id_list_message=t-יציאה מ${startAddress}.t-אל ${endAddress}.t-אורך ${distance}.t-זמן ${duration}`;
+      let id_list_message = `יציאה מ${startAddress}. אל ${endAddress}. אורך המסלול: ${distance}. זמן נסיעה משוער: ${duration}.`;
 
 
       res.set('Content-Type', 'text/plain; charset=utf-8');
