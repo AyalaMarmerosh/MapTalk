@@ -118,7 +118,7 @@ app.get('/directions', async (req, res) => {
 
       // יצירת טקסט סופי
       // let id_list_message = `id_list_message=t-יציאה מ${startAddress} אל ${endAddress} אורך המסלול: ${distance} זמן נסיעה משוער: ${duration}.`;
-      let id_list_message = `id_list_message=t-שלום וברכה`;
+      let id_list_message = `id_list_message=t-שלום ברכה`;
 
 
       res.set('Content-Type', 'text/plain; charset=utf-8');
