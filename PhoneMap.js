@@ -7,7 +7,6 @@ const port = 3000;
 
 const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
 
-
 app.get('/directions', async (req, res) => {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   res.setHeader('Accept-Charset', 'utf-8');
@@ -120,16 +119,11 @@ app.get('/directions', async (req, res) => {
       const detailedSteps = getDetailedSteps(route.steps);
 
       // יצירת טקסט סופי
-      // let id_list_message = `id_list_message=t-יציאה מ${startAddress} אל ${endAddress} אורך המסלול: ${distance} זמן נסיעה משוער: ${duration}`;
-      let id_list_message = `id_list_message=t-שלום ברכה`;
+      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}`;
 
       res.send(id_list_message);
     } else {
-      res
-        .status(500)
-        .send(
-          'id_list_message=f-not_found'
-        );
+      res.status(500).send('id_list_message=f-not_found');
     }
   } catch (error) {
     console.error(error);
