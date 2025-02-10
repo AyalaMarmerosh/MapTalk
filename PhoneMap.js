@@ -128,7 +128,7 @@ app.get('/directions', async (req, res) => {
       res
         .status(500)
         .send(
-          'id_list_message=t-לא נמצאה כתובת'
+          'id_list_message=f-not_found'
         );
     }
   } catch (error) {
