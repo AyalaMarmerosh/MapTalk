@@ -5,8 +5,7 @@ const axios = require('axios');
 const app = express();
 const port = 3000;
 
-// const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
-const googleMapsApiKey = "AIzaSyCdwH3Of8NmDJuaA17HxGmH994Wv0F6x7Q";
+const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
 
 app.get('/directions', async (req, res) => {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
