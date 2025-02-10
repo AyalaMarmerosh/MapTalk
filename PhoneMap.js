@@ -121,6 +121,7 @@ app.get('/directions', async (req, res) => {
       let id_list_message = `id_list_message=t-שלום ברכה`;
 
 
+
       res.set('Content-Type', 'text/plain; charset=utf-8');
       res.setHeader('Content-Type', 'text/plain; charset=utf-8');
       res.send(id_list_message);
