@@ -94,10 +94,12 @@ app.get('/directions', async (req, res) => {
                 .replace(/<\/div>/g, '') // מסיר div סגירה
                 .replace(/<[^>]+>/g, '')
                 .replace(/[.()]/g, '')
+                .replace(/\u200F/g, '')
             : 'הוראה חסרה';
 
           // הוספת ההוראה המפורקת לרשימה
-          let stepText = `${instruction} זמן: ${step.duration.text}`;
+          // let stepText = `${instruction} זמן: ${step.duration.text}`;
+          let stepText = instruction;
           // let stepText = `${instruction} (מרחק: ${step.distance.text}, זמן: ${step.duration.text})`;
 
           // בדיקת תחבורה ציבורית
