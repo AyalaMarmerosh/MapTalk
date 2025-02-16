@@ -93,7 +93,7 @@ app.get('/directions', async (req, res) => {
                 .replace(/<div.*?>/g, '') // מסיר div אם יש
                 .replace(/<\/div>/g, '') // מסיר div סגירה
                 .replace(/<[^>]+>/g, '')
-                .replace(/[.()]/g, '')
+                .replace(/[.()"]/g, '')
                 .replace(/\u200F/g, '')
             : 'הוראה חסרה';
 
