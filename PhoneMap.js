@@ -92,6 +92,10 @@ app.get('/directions', async (req, res) => {
                 .replace(/<b>(.*?)<\/b>/g, '$1') // מסיר את ה-bold
                 .replace(/<div.*?>/g, '') // מסיר div אם יש
                 .replace(/<\/div>/g, '') // מסיר div סגירה
+                .replace(/<[^>]+>/g, '')   
+                .replace(/\./g, '')
+
+
             : 'הוראה חסרה';
 
           // הוספת ההוראה המפורקת לרשימה
@@ -119,7 +123,7 @@ app.get('/directions', async (req, res) => {
       const detailedSteps = getDetailedSteps(route.steps);
 
       // יצירת טקסט סופי
-      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}`;
+      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${detailedSteps}`;
 
       res.send(id_list_message);
     } else {
