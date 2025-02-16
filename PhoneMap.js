@@ -92,14 +92,12 @@ app.get('/directions', async (req, res) => {
                 .replace(/<b>(.*?)<\/b>/g, '$1') // מסיר את ה-bold
                 .replace(/<div.*?>/g, '') // מסיר div אם יש
                 .replace(/<\/div>/g, '') // מסיר div סגירה
-                .replace(/<[^>]+>/g, '')   
-                .replace(/\./g, '')
-
-
+                .replace(/<[^>]+>/g, '')
+                .replace(/[.()]/g, '')
             : 'הוראה חסרה';
 
           // הוספת ההוראה המפורקת לרשימה
-          let stepText = `${instruction} (זמן: ${step.duration.text})`;
+          let stepText = `${instruction} זמן: ${step.duration.text}`;
           // let stepText = `${instruction} (מרחק: ${step.distance.text}, זמן: ${step.duration.text})`;
 
           // בדיקת תחבורה ציבורית
