@@ -100,9 +100,9 @@ app.get('/directions', async (req, res) => {
                 .replace(/-/g, '')
                 .replace(/[/]/g, ' ')
                 // .replace(/“|”/g, '') // מסיר ציטוטים מיוחדים
-                // .replace(/,,/g, ',') // מסיר פסיקים כפולים
-                // .replace(/,/g, '') 
-            : '';
+                .replace(/,,/g, ',') // מסיר פסיקים כפולים
+            : // .replace(/,/g, '')
+              '';
 
           // הסרת רווחים מיותרים לפני ואחרי הטקסט
           instruction = instruction.trim();
@@ -120,8 +120,11 @@ app.get('/directions', async (req, res) => {
             const departureTime = step.transit_details.departure_time.text; // שעת יציאה
 
             stepText += `\n- קו ${line}, תחנה: ${departureStop}, ירידה בתחנה: ${arrivalStop}, שעת יציאה: ${departureTime}`;
-            stepText = stepText.replace(/'/g, '').replace(/[/]/g, ' ');  // מסיר את התו '
-
+            stepText = stepText
+              .replace(/'/g, '')
+              .replace(/[/]/g, ' ')
+              .replace(/-/g, ',')
+              .replace(/,,/g, ',');
           }
 
           allSteps.push(stepText);
@@ -150,4 +153,3 @@ app.get('/directions', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
-
