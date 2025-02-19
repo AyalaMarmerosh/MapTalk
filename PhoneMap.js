@@ -98,9 +98,9 @@ app.get('/directions', async (req, res) => {
                 .replace(/'/g, '') // מסיר את הסימן '
                 .replace(/''/g, '') // מסיר ציטוטים כפולים
                 .replace(/-/g, '')
-                .replace(/[/]/g, ' ')
+                .replace(/[/,]/g, ' ')
                 // .replace(/“|”/g, '') // מסיר ציטוטים מיוחדים
-                .replace(/,,/g, ',') // מסיר פסיקים כפולים
+                .replace(/,,/g, '') // מסיר פסיקים כפולים
             : // .replace(/,/g, '')
               '';
 
@@ -119,14 +119,14 @@ app.get('/directions', async (req, res) => {
             const arrivalStop = step.transit_details.arrival_stop.name; // תחנה לרדת
             const departureTime = step.transit_details.departure_time.text; // שעת יציאה
 
-            stepText += `\n- קו ${line}, תחנה ${departureStop}, ירידה בתחנה ${arrivalStop}`;
+            stepText += `\n- קו ${line} תחנה ${departureStop} ירידה בתחנה ${arrivalStop}`;
             // stepText += `\n- קו ${line}, תחנה ${departureStop}, ירידה בתחנה ${arrivalStop}, שעת יציאה ${departureTime}`;
 
             stepText = stepText
               .replace(/'/g, '')
-              .replace(/[/]/g, ' ')
-              .replace(/-/g, ',')
-              .replace(/,,/g, ',');
+              .replace(/[/,]/g, ' ')
+              .replace(/-/g, '')
+              .replace(/,,/g, '');
           }
           console.log("צעדים:", stepText);
           allSteps.push(stepText);
@@ -140,10 +140,10 @@ app.get('/directions', async (req, res) => {
       const detailedSteps = getDetailedSteps(route.steps);
 
       const test = "מה נשמע, אילה"
-      const filteredSteps = detailedSteps.filter(step => step.trim() !== '').join(', ');
+      const filteredSteps = detailedSteps.filter(step => step.trim() !== '').join(' ');
 
       // יצירת טקסט סופי
-      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${test}`;
+      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${filteredSteps}`;
 
       res.send(id_list_message);
     } else {
