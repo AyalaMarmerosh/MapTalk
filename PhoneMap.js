@@ -65,15 +65,12 @@ app.get('/directions', async (req, res) => {
       }
     );
 
-    // הדפסת התגובה המלאה מ-Google Maps
     // console.log('Google Maps response:', response.data);
 
-    // אם הסטטוס לא OK, הדפסת הודעת שגיאה
     if (response.data.status !== 'OK') {
       console.log('Error from Google Maps API:', response.data.error_message);
     }
 
-    //   הנתיב המלא של ה-response
     // console.log('Routes:', response.data.routes);
 
     if (response.data.status === 'OK') {
@@ -89,25 +86,23 @@ app.get('/directions', async (req, res) => {
         steps.forEach((step) => {
           let instruction = step.html_instructions
             ? step.html_instructions
-                .replace(/<b>(.*?)<\/b>/g, '$1') // מסיר את ה-bold
-                .replace(/<div.*?>/g, '') // מסיר div אם יש
-                .replace(/<\/div>/g, '') // מסיר div סגירה
-                .replace(/<[^>]+>/g, '') // מסיר כל תג HTML
-                .replace(/[.()"]/g, '') // מסיר תו נקודה, סוגריים ומרכאות כפולות
-                .replace(/\u200F/g, '') // מסיר תו RTL
-                .replace(/'/g, '') // מסיר את הסימן '
-                .replace(/''/g, '') // מסיר ציטוטים כפולים
+                .replace(/<b>(.*?)<\/b>/g, '$1')                 
+                .replace(/<div.*?>/g, '')                 
+                .replace(/<\/div>/g, '')                 
+                .replace(/<[^>]+>/g, '') 
+                .replace(/[.()"]/g, '')
+                .replace(/\u200F/g, '')              
+                .replace(/'/g, '') 
+                .replace(/''/g, '')
                 .replace(/-/g, '')
                 .replace(/[/,]/g, ' ')
-                // .replace(/“|”/g, '') // מסיר ציטוטים מיוחדים
-                .replace(/,,/g, '') // מסיר פסיקים כפולים
+                // .replace(/“|”/g, '') 
+                .replace(/,,/g, '') 
             : // .replace(/,/g, '')
               '';
 
-          // הסרת רווחים מיותרים לפני ואחרי הטקסט
           instruction = instruction.trim();
 
-          // הוספת ההוראה המפורקת לרשימה
           // let stepText = `${instruction} זמן: ${step.duration.text}`;
           let stepText = instruction;
           // let stepText = `${instruction} (מרחק: ${step.distance.text}, זמן: ${step.duration.text})`;
@@ -139,7 +134,7 @@ app.get('/directions', async (req, res) => {
       }
       const detailedSteps = getDetailedSteps(route.steps);
 
-      const test = "מה נשמע אילה"
+      const test = 'מה נשמע אילה';
       const filteredSteps = detailedSteps.filter(step => step.trim() !== '').join(' ');
 
       // יצירת טקסט סופי
