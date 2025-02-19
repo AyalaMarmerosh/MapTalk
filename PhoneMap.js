@@ -11,7 +11,7 @@ app.get('/directions', async (req, res) => {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   res.setHeader('Accept-Charset', 'utf-8');
 
-  console.log('Received request with query:', req.query);
+  // console.log('Received request with query:', req.query);
   const { origin, destination, mode, departure_time, arrival_time } = req.query;
 
   if (!origin || !destination || !mode) {
@@ -42,13 +42,13 @@ app.get('/directions', async (req, res) => {
     : null;
 
   try {
-    console.log('Request to Google Maps API:', {
-      origin: origin,
-      destination: destination,
-      mode: modeName,
-      departure_time: departureTimeParam,
-      arrival_time: arrivalTimeParam,
-    });
+    // console.log('Request to Google Maps API:', {
+    //   origin: origin,
+    //   destination: destination,
+    //   mode: modeName,
+    //   departure_time: departureTimeParam,
+    //   arrival_time: arrivalTimeParam,
+    // });
     const response = await axios.get(
       `https://maps.googleapis.com/maps/api/directions/json`,
       {
@@ -66,7 +66,7 @@ app.get('/directions', async (req, res) => {
     );
 
     // הדפסת התגובה המלאה מ-Google Maps
-    console.log('Google Maps response:', response.data);
+    // console.log('Google Maps response:', response.data);
 
     // אם הסטטוס לא OK, הדפסת הודעת שגיאה
     if (response.data.status !== 'OK') {
@@ -74,10 +74,10 @@ app.get('/directions', async (req, res) => {
     }
 
     //   הנתיב המלא של ה-response
-    console.log('Routes:', response.data.routes);
+    // console.log('Routes:', response.data.routes);
 
     if (response.data.status === 'OK') {
-      console.log('routers', response.data.routes[0].legs[0].steps[0].steps);
+      // console.log('routers', response.data.routes[0].legs[0].steps[0].steps);
       const route = response.data.routes[0].legs[0];
       const startAddress = route.start_address;
       const endAddress = route.end_address;
@@ -126,7 +126,7 @@ app.get('/directions', async (req, res) => {
               .replace(/-/g, ',')
               .replace(/,,/g, ',');
           }
-
+          console.log("צעדים:", stepText);
           allSteps.push(stepText);
           // אם יש תת-צעדים, קוראים לפונקציה שוב
           if (step.steps && step.steps.length > 0) {
@@ -137,8 +137,9 @@ app.get('/directions', async (req, res) => {
       }
       const detailedSteps = getDetailedSteps(route.steps);
 
+      const test = "מה נשמע,, אילה"
       // יצירת טקסט סופי
-      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${detailedSteps}`;
+      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${test}`;
 
       res.send(id_list_message);
     } else {
