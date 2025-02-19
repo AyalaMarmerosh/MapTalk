@@ -138,8 +138,10 @@ app.get('/directions', async (req, res) => {
       const detailedSteps = getDetailedSteps(route.steps);
 
       const test = "מה נשמע,, אילה"
+      const filteredSteps = detailedSteps.filter(step => step.trim() !== '').join(',');
+
       // יצירת טקסט סופי
-      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${test}`;
+      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${filteredSteps}`;
 
       res.send(id_list_message);
     } else {
