@@ -119,7 +119,9 @@ app.get('/directions', async (req, res) => {
             const arrivalStop = step.transit_details.arrival_stop.name; // תחנה לרדת
             const departureTime = step.transit_details.departure_time.text; // שעת יציאה
 
-            stepText += `\n- קו ${line}, תחנה: ${departureStop}, ירידה בתחנה: ${arrivalStop}, שעת יציאה: ${departureTime}`;
+            stepText += `\n- קו ${line}, תחנה ${departureStop}, ירידה בתחנה ${arrivalStop}`;
+            // stepText += `\n- קו ${line}, תחנה ${departureStop}, ירידה בתחנה ${arrivalStop}, שעת יציאה ${departureTime}`;
+
             stepText = stepText
               .replace(/'/g, '')
               .replace(/[/]/g, ' ')
