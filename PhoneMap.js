@@ -92,10 +92,20 @@ app.get('/directions', async (req, res) => {
                 .replace(/<b>(.*?)<\/b>/g, '$1') // מסיר את ה-bold
                 .replace(/<div.*?>/g, '') // מסיר div אם יש
                 .replace(/<\/div>/g, '') // מסיר div סגירה
-                .replace(/<[^>]+>/g, '')
-                .replace(/[.()"]/g, '')
-                .replace(/\u200F/g, '')
-            : 'הוראה חסרה';
+                .replace(/<[^>]+>/g, '') // מסיר כל תג HTML
+                .replace(/[.()"]/g, '') // מסיר תו נקודה, סוגריים ומרכאות כפולות
+                .replace(/\u200F/g, '') // מסיר תו RTL
+                .replace(/'/g, '') // מסיר את הסימן '
+                .replace(/''/g, '') // מסיר ציטוטים כפולים
+                .replace(/-/g, '')
+                .replace(/[/]/g, ' ')
+                // .replace(/“|”/g, '') // מסיר ציטוטים מיוחדים
+                // .replace(/,,/g, ',') // מסיר פסיקים כפולים
+                // .replace(/,/g, '') 
+            : '';
+
+          // הסרת רווחים מיותרים לפני ואחרי הטקסט
+          instruction = instruction.trim();
 
           // הוספת ההוראה המפורקת לרשימה
           // let stepText = `${instruction} זמן: ${step.duration.text}`;
@@ -110,6 +120,8 @@ app.get('/directions', async (req, res) => {
             const departureTime = step.transit_details.departure_time.text; // שעת יציאה
 
             stepText += `\n- קו ${line}, תחנה: ${departureStop}, ירידה בתחנה: ${arrivalStop}, שעת יציאה: ${departureTime}`;
+            stepText = stepText.replace(/'/g, '').replace(/[/]/g, ' ');  // מסיר את התו '
+
           }
 
           allSteps.push(stepText);
@@ -138,3 +150,4 @@ app.get('/directions', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+
