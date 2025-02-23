@@ -134,13 +134,13 @@ app.get('/directions', async (req, res) => {
       }
       const detailedSteps = getDetailedSteps(route.steps);
 
-      const test = 'מה נשמע ';
+      const test = 'hello world';
       const filteredSteps = detailedSteps
         .filter((step) => step.trim() !== '')
         .join(' ');
 
       // יצירת טקסט סופי
-      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${filteredSteps}`;
+      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${test}`;
 
       res.send(id_list_message);
     } else {
