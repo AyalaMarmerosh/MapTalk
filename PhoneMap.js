@@ -82,6 +82,7 @@ app.get('/directions', async (req, res) => {
       const distance = route.distance.text;
       const duration = route.duration.text;
 
+      console.log(route.steps, "איך זה נראה?")
       function getDetailedSteps(steps) {
         let allSteps = [];
         steps.forEach((step) => {
@@ -131,6 +132,7 @@ app.get('/directions', async (req, res) => {
             allSteps = allSteps.concat(getDetailedSteps(step.steps));
           }
         });
+        console.log(allSteps, "כל הצעדים");
         return allSteps;
       }
       const detailedSteps = getDetailedSteps(route.steps);
@@ -141,7 +143,7 @@ app.get('/directions', async (req, res) => {
         .join(' ');
 
       // יצירת טקסט סופי
-      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${detailedSteps}`;
+      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${detailedSteps.join(' ').replace(/\s+/g, ' ')}`;
 
       res.send(id_list_message);
     } else {
