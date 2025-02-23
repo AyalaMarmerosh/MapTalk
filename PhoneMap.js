@@ -86,18 +86,18 @@ app.get('/directions', async (req, res) => {
         steps.forEach((step) => {
           let instruction = step.html_instructions
             ? step.html_instructions
-                .replace(/<b>(.*?)<\/b>/g, '$1')                 
-                .replace(/<div.*?>/g, '')                 
-                .replace(/<\/div>/g, '')                 
-                .replace(/<[^>]+>/g, '') 
+                .replace(/<b>(.*?)<\/b>/g, '$1')
+                .replace(/<div.*?>/g, '')
+                .replace(/<\/div>/g, '')
+                .replace(/<[^>]+>/g, '')
                 .replace(/[.()"]/g, '')
-                .replace(/\u200F/g, '')              
-                .replace(/'/g, '') 
+                .replace(/\u200F/g, '')
+                .replace(/'/g, '')
                 .replace(/''/g, '')
                 .replace(/-/g, '')
-                .replace(/[/,]/g, ' ')
-                // .replace(/“|”/g, '') 
-                .replace(/,,/g, '') 
+                .replace(/[/]/g, ' ')
+                // .replace(/“|”/g, '')
+                .replace(/,,/g, '')
             : // .replace(/,/g, '')
               '';
 
@@ -119,11 +119,11 @@ app.get('/directions', async (req, res) => {
 
             stepText = stepText
               .replace(/'/g, '')
-              .replace(/[/,]/g, ' ')
+              .replace(/[/]/g, ' ')
               .replace(/-/g, '')
               .replace(/,,/g, '');
           }
-          console.log("צעדים:", stepText);
+          console.log('צעדים:', stepText);
           allSteps.push(stepText);
           // אם יש תת-צעדים, קוראים לפונקציה שוב
           if (step.steps && step.steps.length > 0) {
@@ -134,11 +134,13 @@ app.get('/directions', async (req, res) => {
       }
       const detailedSteps = getDetailedSteps(route.steps);
 
-      const test = "מה נשמע אילה";
-      const filteredSteps = detailedSteps.filter(step => step.trim() !== '').join(' ');
+      const test = 'מה נשמע ';
+      const filteredSteps = detailedSteps
+        .filter((step) => step.trim() !== '')
+        .join(' ');
 
       // יצירת טקסט סופי
-      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${test}`;
+      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${filteredSteps}`;
 
       res.send(id_list_message);
     } else {
