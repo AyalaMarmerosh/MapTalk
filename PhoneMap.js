@@ -134,7 +134,7 @@ app.get('/directions', async (req, res) => {
       }
       const detailedSteps = getDetailedSteps(route.steps);
 
-      const test = 'מה נשמע אילה';
+      const test = "מה נשמע אילה";
       const filteredSteps = detailedSteps.filter(step => step.trim() !== '').join(' ');
 
       // יצירת טקסט סופי
