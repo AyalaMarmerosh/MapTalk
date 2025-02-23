@@ -76,6 +76,7 @@ app.get('/directions', async (req, res) => {
     if (response.data.status === 'OK') {
       // console.log('routers', response.data.routes[0].legs[0].steps[0].steps);
       const route = response.data.routes[0].legs[0];
+
       const startAddress = route.start_address;
       const endAddress = route.end_address;
       const distance = route.distance.text;
@@ -140,7 +141,7 @@ app.get('/directions', async (req, res) => {
         .join(' ');
 
       // יצירת טקסט סופי
-      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${test}`;
+      let id_list_message = `id_list_message=f-from.t-${startAddress}.f-to.t-${endAddress}.f-time.t-${duration}.f-steps.t-${detailedSteps}`;
 
       res.send(id_list_message);
     } else {
